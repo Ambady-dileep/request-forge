@@ -4,7 +4,7 @@ export default function UrlInput({ value, onChange }) {
             type="text" 
             placeholder="Enter URL"
             value={value}
-            onChange={(e) => onChange && onChange(e.target.value)} 
+            onChange={(e) => onChange(e.target.value)} 
         />
     );
 }
