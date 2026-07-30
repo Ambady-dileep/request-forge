@@ -1,173 +1,325 @@
 # Request Forge
 
-A frontend API testing tool inspired by Postman/Insomnia.
+A frontend API testing tool inspired by Postman and Insomnia.
 
-Built to deeply learn React architecture, state management, API communication, and professional frontend development practices.
-
----
-
-# Phase 1 — Foundation ✅
-
-- [x] Project setup
-- [x] Vite React setup
-- [x] GitHub repository
-- [x] Component structure
-- [x] RequestPanel
-- [x] ResponsePanel
-- [x] MethodSelect component
-- [x] UrlInput component
-- [x] SendButton component
-- [x] Controlled components
-- [x] Props communication
-- [x] useState usage
-- [x] Lift state to App component
-
+Built with React to learn real-world frontend engineering by creating a production-style application instead of following tutorials.
 
 ---
 
-# Phase 2 — Request Lifecycle ✅
+# Project Goals
 
-Completed:
+- Learn React through real application development
+- Understand component architecture
+- Practice state management patterns
+- Learn HTTP communication using Fetch API
+- Build a portfolio-quality frontend project
+- Follow professional software engineering practices
 
-- [x] Fetch API integration
-- [x] Send HTTP requests
-- [x] Display JSON response
-- [x] Basic HTTP error handling
-- [x] Response.ok validation
-- [x] Error state management
-- [x] Network error handling
-- [x] Loading state
-- [x] Disable button while loading
-- [x] Display response status
-- [x] Display response time
-- [x] Display response size
+---
+
+# Current Features
+
+## Request Builder
+
+- HTTP method selection
+- API URL input
+- Send API requests
+- Support GET requests
+- Support POST requests
+- Support PUT requests
+- Support PATCH requests
+
+
+## Request Body
+
+- JSON request body editor
+- JSON validation before sending
+- Automatic Content-Type handling
+
+
+## Request Headers
+
+- Dynamic header editor
+- Add multiple headers
+- Custom Authorization headers
+- Custom API headers support
+
+
+## Response Viewer
+
+- Display JSON response
+- Pretty formatted JSON output
+- Response status
+- Response time
+- Response size
+
+
+## Response Headers
+
+- Extract response headers
+- Display response headers
+
+
+## Error Handling
+
+- HTTP error handling
+- Network error handling
+- Invalid JSON handling
+- Loading state management
+- Prevent duplicate requests while loading
+
+---
+
+# Tech Stack
+
+Frontend:
+
+- React
+- Vite
+- JavaScript (ES6+)
+- Fetch API
+
+Future:
+
+- Tailwind CSS
+- Django REST Framework backend
+
+---
+
+# Project Structure
+
+src/
+│
+├── components/
+│ │
+│ ├── request/
+│ │ ├── MethodSelect.jsx
+│ │ ├── UrlInput.jsx
+│ │ ├── SendButton.jsx
+│ │ ├── BodyEditor.jsx
+│ │ ├── HeaderEditor.jsx
+│ │ ├── RequestTabs.jsx
+│ │ └── RequestPanel.jsx
+│ │
+│ ├── response/
+│ │ ├── ResponsePanel.jsx
+│ │ ├── ResponseHeaders.jsx
+│ │ └── ResponseTabs.jsx
+│ │
+│ └── layout/
+│
+├── services/
+│
+├── hooks/
+│
+├── utils/
+│
+├── pages/
+│
+├── App.jsx
+└── main.jsx
+
 
 
 ---
 
-# Phase 3 — HTTP Features ✅
+# React Concepts Practiced
 
-Completed:
+- Functional Components
+- Component Composition
+- Props
+- State Management
+- useState Hook
+- Controlled Components
+- Lifting State Up
+- Parent → Child Data Flow
+- Conditional Rendering
+- Component Reusability
 
-- [x] GET requests
-- [x] POST requests
-- [x] PUT requests
-- [x] PATCH requests
-- [x] Request body editor
-- [x] JSON body validation
-- [x] Pretty JSON formatting
-- [x] Response JSON viewer
+---
 
+# JavaScript Concepts Practiced
 
-Remaining:
+- async / await
+- Fetch API
+- Promises
+- Response Object
+- JSON Parsing
+- Error Handling
+- Object Manipulation
+- Array Methods
+- Spread Operator
+- Dynamic Object Keys
+- Performance API
 
-- [ ] DELETE requests
-- [ ] Copy response
+---
+
+# HTTP Concepts Practiced
+
+- HTTP Methods
+    - GET
+    - POST
+    - PUT
+    - PATCH
+
+- HTTP Headers
+- Request Body
+- Content-Type
+- Authorization Headers
+- Response Headers
+- Status Codes
+- Response Metadata
+- API Error Handling
+
+---
+
+# Application Flow
+
+User Input
+
+↓
+
+RequestPanel
+
+↓
+
+Fetch API
+
+↓
+
+External API Server
+
+↓
+
+Response Processing
+
+↓
+
+ResponsePanel
 
 
 ---
 
-# Phase 4 — Advanced Request Builder (Current)
+# Current Progress
 
-Completed:
+## Completed ✅
 
-- [x] Request headers editor
-- [x] Multiple request headers support
-- [x] Dynamic header rows
-- [x] Custom Authorization header
-- [x] Response headers extraction
-- [x] Response headers display
-
-
-Current:
-
-- [ ] Request tabs (Body / Headers / Params)
-- [ ] Query parameters
-- [ ] Authorization UI
-- [ ] Environment variables
-- [ ] Request validation improvements
-
-
----
-
-# Phase 5 — Productivity Features
-
-Upcoming:
-
-- [ ] Request history
-- [ ] Save previous requests
-- [ ] LocalStorage integration
-- [ ] Delete history items
-- [ ] Clear history
-- [ ] Import requests
-- [ ] Export requests
+- Project setup
+- React architecture
+- Component structure
+- Request builder
+- Fetch API integration
+- JSON response viewer
+- Error handling
+- Loading state
+- Response metadata
+- Request body support
+- JSON validation
+- Request headers
+- Authorization headers
+- Response headers
 
 
----
+## Currently Working 🚧
 
-# Phase 6 — UI & Polish
+Request Builder improvements:
 
-Upcoming:
+- Body / Headers / Params tabs
+- Query parameters
+- Better request organization
 
-- [ ] Tailwind CSS
-- [ ] Professional layout
-- [ ] Responsive design
-- [ ] Dark mode
-- [ ] Better JSON viewer
-- [ ] Copy buttons
-- [ ] Toast notifications
-- [ ] Empty states
-- [ ] Loading animations
-- [ ] Error UI improvements
-- [ ] Keyboard shortcuts
-- [ ] Deployment
+
+## Planned
+
+### Productivity Features
+
+- Request history
+- Local storage
+- Save recent requests
+- Delete history
+- Import/export requests
+
+
+### UI Improvements
+
+- Tailwind CSS
+- Professional layout
+- Responsive design
+- Dark mode
+- Better JSON viewer
+- Copy response button
+- Toast notifications
+- Animations
+
+
+### Deployment
+
+- Production build
+- Hosting
+- Performance optimization
 
 
 ---
 
 # Future Backend Version
 
-Possible upgrade:
+Possible backend upgrade using Django REST Framework:
 
-Backend:
-- Django REST Framework
 - User authentication
 - JWT authentication
-- Saved collections
+- Saved API collections
 - Workspaces
 - Team collaboration
-- API key management
-- Cloud sync
-
-
----
-
-# Current Architecture
-
-React
- |
- |-- App
- |
- |-- RequestPanel
- |      |
- |      |-- MethodSelect
- |      |-- UrlInput
- |      |-- BodyEditor
- |      |-- HeaderEditor
- |
- |
- |-- ResponsePanel
-        |
-        |-- ResponseHeaders
-
+- Environment variables
+- Cloud synchronization
 
 ---
 
-# Learning Goals
+# Getting Started
 
-- React component architecture
-- State management
-- API communication
-- HTTP fundamentals
-- Real-world frontend architecture
-- Building production style applications
+Clone repository:
+
+```bash
+git clone https://github.com/Ambady-dileep/request-forge.git
+
+Navigate:
+
+cd request-forge/frontend
+
+Install dependencies:
+
+npm install
+
+Run development server:
+
+npm run dev
+Learning Philosophy
+
+This project is built incrementally.
+
+Every feature follows:
+
+Understand the problem
+Design the component architecture
+Implement a small change
+Test functionality
+Debug issues
+Refactor when needed
+
+The goal is not only to build a working application, but to understand the engineering decisions behind it.
+
+Author
+
+Dileep Ambady
+
+Learning Full Stack Development with React, Django, and Django REST Framework through real-world projects.
+
+
+After updating:
+
+```bash
+git add README.md
+
+git commit -m "docs: update README with current project features and architecture"
+
+git push

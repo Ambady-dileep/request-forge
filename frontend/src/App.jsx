@@ -1,6 +1,8 @@
 import { useState } from "react";
 import RequestPanel from "./components/request/RequestPanel";
 import ResponsePanel from "./components/response/ResponsePanel";
+import Navbar from "./components/layout/Navbar";
+import Sidebar from "./components/layout/Sidebar";
 
 
 function App(){
@@ -16,6 +18,8 @@ function App(){
 
   return (
     <>
+    <Navbar/>
+    <Sidebar/>
       <RequestPanel 
         setResponse={setResponse}
         setResponseHeaders={setResponseHeaders}
