@@ -6,6 +6,7 @@ import ResponsePanel from "./components/response/ResponsePanel";
 function App(){
 
   const [response, setResponse] = useState(null);
+  const [responseHeaders, setResponseHeaders] = useState({});
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   
@@ -16,7 +17,8 @@ function App(){
   return (
     <>
       <RequestPanel 
-        setResponse={setResponse} 
+        setResponse={setResponse}
+        setResponseHeaders={setResponseHeaders}
         setError={setError}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
@@ -24,12 +26,15 @@ function App(){
         setResponseTime={setResponseTime}
         setResponseSize={setResponseSize}
       />
+
       <ResponsePanel 
-        response={response} 
+        response={response}
+        responseHeaders={responseHeaders}
         error={error}
         isLoading={isLoading}
         status={status}
         responseTime={responseTime}
+        responseSize={responseSize}
       />
     </>
   )

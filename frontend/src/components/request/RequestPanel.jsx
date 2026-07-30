@@ -7,6 +7,7 @@ import HeaderEditor from "./HeaderEditor";
 
 export default function RequestPanel({ 
     setResponse, 
+    setResponseHeaders,
     setError, 
     isLoading, 
     setIsLoading, 
@@ -17,8 +18,12 @@ export default function RequestPanel({
     const [httpMethod, setHttpMethod] = useState("GET");
     const [url, setUrl] = useState("");
     const [body, setBody] = useState("");
-    const [headerKey, setHeaderKey] = useState("");
-    const [headerValue, setHeaderValue] = useState(""); 
+    const [headers, setHeaders] = useState([
+        {
+            key:"",
+            value:""
+        }
+    ]);
 
     const methodsWithBody = ["POST", "PUT", "PATCH"];
 
@@ -44,28 +49,45 @@ export default function RequestPanel({
                 method: httpMethod,
             };
 
-            const headers = {};
+            const requestHeaders = {};
 
-            if (headerKey.trim() && headerValue.trim()){
-                headers[headerKey.trim()] = headerValue.trim();
-            }
+            headers.forEach((header)=>{
+
+                if(header.key.trim() && header.value.trim()){
+
+                    requestHeaders[header.key.trim()] = header.value.trim();
+
+                }
+
+            });
 
             if (methodsWithBody.includes(httpMethod) && body.trim()){
+
                 try{
                     JSON.parse(body);
-                    headers["Content-Type"] = "application/json";
+                    requestHeaders["Content-Type"] = "application/json";
+
                 } catch (error) {
                     setError("Invalid JSON body.");
                     return;
                 }
+
                 requestConfig.body = body;
             }
 
-            if (Object.keys(headers).length > 0) {
-                requestConfig.headers = headers;
+            if (Object.keys(requestHeaders).length > 0) {
+                requestConfig.headers = requestHeaders;
             }
 
             const apiResponse = await fetch(trimmedUrl, requestConfig);
+
+            const responseHeaders = {};
+
+            apiResponse.headers.forEach((value, key)=>{
+                responseHeaders[key] = value;
+            });
+
+            setResponseHeaders(responseHeaders);
 
             const endTime = performance.now();
             const duration = Math.round(endTime - startTime);
@@ -111,10 +133,8 @@ export default function RequestPanel({
                 />
             )}
             <HeaderEditor
-                headerKey={headerKey}
-                headerValue={headerValue}
-                onHeaderKeyChange={setHeaderKey}
-                onHeaderValueChange={setHeaderValue}
+                headers={headers}
+                setHeaders={setHeaders}
             />
             <SendButton
                 onClick={handleSend}
