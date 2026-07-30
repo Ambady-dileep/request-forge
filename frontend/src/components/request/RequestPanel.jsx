@@ -3,6 +3,7 @@ import MethodSelect from "./MethodSelect"
 import SendButton from "./SendButton"
 import UrlInput from "./UrlInput"
 import BodyEditor from "./BodyEditor";
+import HeaderEditor from "./HeaderEditor";
 
 export default function RequestPanel({ 
     setResponse, 
@@ -16,6 +17,8 @@ export default function RequestPanel({
     const [httpMethod, setHttpMethod] = useState("GET");
     const [url, setUrl] = useState("");
     const [body, setBody] = useState("");
+    const [headerKey, setHeaderKey] = useState("");
+    const [headerValue, setHeaderValue] = useState(""); 
 
     const methodsWithBody = ["POST", "PUT", "PATCH"];
 
@@ -27,7 +30,6 @@ export default function RequestPanel({
             return;
         }
         
-
         try{
             setError(null);
             setResponse(null);
@@ -42,17 +44,25 @@ export default function RequestPanel({
                 method: httpMethod,
             };
 
+            const headers = {};
+
+            if (headerKey.trim() && headerValue.trim()){
+                headers[headerKey.trim()] = headerValue.trim();
+            }
+
             if (methodsWithBody.includes(httpMethod) && body.trim()){
                 try{
                     JSON.parse(body);
+                    headers["Content-Type"] = "application/json";
                 } catch (error) {
                     setError("Invalid JSON body.");
                     return;
                 }
-                requestConfig.headers = {
-                    "Content-Type":"application/json",
-                }
                 requestConfig.body = body;
+            }
+
+            if (Object.keys(headers).length > 0) {
+                requestConfig.headers = headers;
             }
 
             const apiResponse = await fetch(trimmedUrl, requestConfig);
@@ -100,6 +110,12 @@ export default function RequestPanel({
                     onChange={setBody}
                 />
             )}
+            <HeaderEditor
+                headerKey={headerKey}
+                headerValue={headerValue}
+                onHeaderKeyChange={setHeaderKey}
+                onHeaderValueChange={setHeaderValue}
+            />
             <SendButton
                 onClick={handleSend}
                 isLoading={isLoading}
