@@ -8,18 +8,27 @@ export default function RequestPanel({ setResponse, setError }) {
     const [ url, setUrl ] = useState("");
 
     const handleSend = async () => {
-        if(!url) {
-            alert("Please enter a URL first!");
+        const trimmedUrl = url.trim();
+
+        if(!trimmedUrl) {
+            setError("Please enter a URL.")
             return;
         }
-        const apiResponse = await fetch(url)
-        if (!apiResponse.ok){
-            setError(`Request failed with status ${apiResponse.status}`)
-            return;
+        try{
+            setError(null)
+            setResponse(null);
+
+            const response = await fetch(trimmedUrl)
+
+            if (!response.ok){
+                setError(`Request failed with status ${response.status}`)
+                return;
+            }
+            const data = await response.json();
+            setResponse(data);
+        }catch(error){
+            setError(error.message)
         }
-        const data = await apiResponse.json();
-        setResponse(data);
-        setError(null)
     }
     return (
         <>

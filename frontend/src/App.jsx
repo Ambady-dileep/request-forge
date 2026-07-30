@@ -6,14 +6,13 @@ import ResponsePanel from "./components/response/ResponsePanel";
 function App(){
   const [ response, setResponse ] = useState(null);
   const [ error, setError ] = useState(null);
-  console.log(error);
   return (
     <>
       <RequestPanel 
         setResponse={setResponse} 
         setError={setError}
       />
-      <ResponsePanel response={response}/>
+      <ResponsePanel response={response} error={error}/>
     </>
   )
 }
