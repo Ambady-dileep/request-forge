@@ -2,98 +2,173 @@
 
 ## Current Phase
 
-Core Request Workflow
+Advanced Request Builder
+
 
 ---
 
-## Completed
+# Completed
 
-### Project Setup
-- Vite
-- React
-- Git
-- GitHub Repository
 
-### React Fundamentals
+## React Fundamentals
+
 - Component composition
 - Controlled components
 - Props
 - useState
-- Lifting State Up
-- Parent → Child data flow
+- State lifting
+- Parent-child communication
+- Conditional rendering
 
-### Components
+
+---
+
+## Components Created
+
+- App
 - RequestPanel
+- ResponsePanel
 - MethodSelect
 - UrlInput
 - SendButton
-- ResponsePanel
+- BodyEditor
+- HeaderEditor
+- ResponseHeaders
 
-### Request Flow
-- Select HTTP Method (GET, POST UI only)
-- Enter API URL
-- Send request using Fetch API
-- Parse JSON response
-- Display response in ResponsePanel
 
-### State Management
-App
-- response
-- error
+---
+
+# Request Flow
+
+
+User
+
+↓
 
 RequestPanel
-- method
-- url
-- receives setResponse
-- receives setError
+
+↓
+
+Fetch API
+
+↓
+
+External API
+
+↓
+
+Response Handling
+
+↓
 
 ResponsePanel
-- receives response
 
-### Error Handling
-- Validate response.ok
-- Prevent JSON parsing on failed HTTP responses
-- Store error in App state
-- Clear error after successful request
 
 ---
 
-## Current Task
+# State Management
 
-Implement complete error handling
 
-Next Steps
+## App State
 
-1. Pass error to ResponsePanel
-2. Display error message
-3. Handle network errors using try/catch
-4. Add loading state (isLoading)
-5. Disable Send button while request is running
+response
 
----
+error
 
-## Learning Style
+isLoading
 
-- Learn one concept at a time
-- Never skip reasoning
-- Build features in very small steps
-- Think before writing code
-- Review code like a senior engineer
-- Focus on architecture over speed
+status
+
+responseTime
+
+responseSize
+
+responseHeaders
+
 
 ---
 
-## Tech Stack
+## RequestPanel State
 
-- React
-- Vite
-- Fetch API
+httpMethod
+
+url
+
+body
+
+headers
+
 
 ---
 
-## Project Goal
+# HTTP Features Completed
 
-Frontend-only API Testing Tool inspired by Postman/Insomnia.
+- GET
+- POST
+- PUT
+- PATCH
 
-Primary objective:
-Learn React fundamentals deeply while building a portfolio-quality project using professional software engineering practices.
+Implemented:
+
+- Request body
+- JSON validation
+- Custom headers
+- Authorization headers
+- Response headers
+
+
+---
+
+# Current Task
+
+Improve Request Builder Architecture
+
+
+Next:
+
+1. Add request tabs
+
+Example:
+
+Body | Headers | Params
+
+
+2. Add query parameters
+
+
+Example:
+
+URL:
+
+api.com/users?page=1
+
+
+UI:
+
+
+Key Value
+
+page 1
+
+
+
+3. Improve Authorization support
+
+
+Example:
+
+Bearer Token UI
+
+
+4. Add DELETE support
+
+
+---
+
+# Engineering Rules
+
+- Small features
+- Understand before coding
+- Review architecture
+- Avoid unnecessary abstraction
+- Build like production software
