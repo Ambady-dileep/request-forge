@@ -2,6 +2,7 @@ import { useState } from "react";
 import MethodSelect from "./MethodSelect"
 import SendButton from "./SendButton"
 import UrlInput from "./UrlInput"
+import BodyEditor from "./BodyEditor";
 
 export default function RequestPanel({ 
     setResponse, 
@@ -12,8 +13,11 @@ export default function RequestPanel({
     setResponseTime, 
     setResponseSize 
 }) {
-    const [ method, setMethod ] = useState("GET");
-    const [ url, setUrl ] = useState("");
+    const [httpMethod, setHttpMethod] = useState("GET");
+    const [url, setUrl] = useState("");
+    const [body, setBody] = useState("");
+
+    const methodsWithBody = ["POST", "PUT", "PATCH"];
 
     const handleSend = async () => {
         const trimmedUrl = url.trim();
@@ -22,6 +26,8 @@ export default function RequestPanel({
             setError("Please enter a URL.");
             return;
         }
+        
+
         try{
             setError(null);
             setResponse(null);
@@ -32,13 +38,30 @@ export default function RequestPanel({
 
             const startTime = performance.now();
 
-            const apiResponse = await fetch(trimmedUrl);
+            const requestConfig = {
+                method: httpMethod,
+            };
+
+            if (methodsWithBody.includes(httpMethod) && body.trim()){
+                try{
+                    JSON.parse(body);
+                } catch (error) {
+                    setError("Invalid JSON body.");
+                    return;
+                }
+                requestConfig.headers = {
+                    "Content-Type":"application/json",
+                }
+                requestConfig.body = body;
+            }
+
+            const apiResponse = await fetch(trimmedUrl, requestConfig);
 
             const endTime = performance.now();
             const duration = Math.round(endTime - startTime);
 
-            setStatus(apiResponse.status)
-            setResponseTime(duration)
+            setStatus(apiResponse.status);
+            setResponseTime(duration);
 
             if (!apiResponse.ok){
                 setError(`Request failed with status ${apiResponse.status}`)
@@ -64,17 +87,23 @@ export default function RequestPanel({
     return (
         <>
             <MethodSelect 
-                value={method} 
-                onChange={setMethod}
+                value={httpMethod} 
+                onChange={setHttpMethod}
             />
             <UrlInput 
                 value={url} 
                 onChange={setUrl}
             />
+            {methodsWithBody.includes(httpMethod) && (
+                <BodyEditor
+                    value={body}
+                    onChange={setBody}
+                />
+            )}
             <SendButton
                 onClick={handleSend}
                 isLoading={isLoading}
-            />
+            /> 
         </>
     )
 }
