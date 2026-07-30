@@ -1,4 +1,12 @@
-export default function ResponsePanel({ response, error }) {
+export default function ResponsePanel({ response, error, isLoading }) {
+    if (isLoading){
+        return(
+            <div>
+                <p className="loading">Loading...</p>
+            </div>
+        )
+    }
+
     if (error) {
         return (
             <div>

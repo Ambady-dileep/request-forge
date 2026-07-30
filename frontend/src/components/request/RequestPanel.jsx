@@ -3,7 +3,7 @@ import MethodSelect from "./MethodSelect"
 import SendButton from "./SendButton"
 import UrlInput from "./UrlInput"
 
-export default function RequestPanel({ setResponse, setError }) {
+export default function RequestPanel({ setResponse, setError, isLoading, setIsLoading }) {
     const [ method, setMethod ] = useState("GET");
     const [ url, setUrl ] = useState("");
 
@@ -15,9 +15,9 @@ export default function RequestPanel({ setResponse, setError }) {
             return;
         }
         try{
-            setError(null)
+            setError(null);
             setResponse(null);
-
+            setIsLoading(true);
             const response = await fetch(trimmedUrl)
 
             if (!response.ok){
@@ -28,13 +28,24 @@ export default function RequestPanel({ setResponse, setError }) {
             setResponse(data);
         }catch(error){
             setError(error.message)
+        }finally{
+            setIsLoading(false)
         }
     }
     return (
         <>
-            <MethodSelect value={method} onChange={setMethod}/>
-            <UrlInput value={url} onChange={setUrl}/>
-            <SendButton onClick={handleSend}/>
+            <MethodSelect 
+                value={method} 
+                onChange={setMethod}
+            />
+            <UrlInput 
+                value={url} 
+                onChange={setUrl}
+            />
+            <SendButton
+                onClick={handleSend}
+                isLoading={isLoading}
+            />
         </>
     )
 }
