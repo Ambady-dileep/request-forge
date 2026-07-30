@@ -11,6 +11,7 @@ function App(){
   
   const [status, setStatus] = useState(null);
   const [responseTime, setResponseTime] = useState(null);
+  const [responseSize, setResponseSize] = useState(null);
 
   return (
     <>
@@ -21,6 +22,7 @@ function App(){
         setIsLoading={setIsLoading}
         setStatus={setStatus}
         setResponseTime={setResponseTime}
+        setResponseSize={setResponseSize}
       />
       <ResponsePanel 
         response={response} 

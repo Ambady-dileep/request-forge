@@ -1,4 +1,4 @@
-export default function ResponsePanel({ response, error, isLoading, status, responseTime }) {
+export default function ResponsePanel({ response, error, isLoading, status, responseTime, responseSize }) {
     return(
         <div>
             <h2>Response Panel</h2>

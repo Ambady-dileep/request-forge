@@ -3,7 +3,15 @@ import MethodSelect from "./MethodSelect"
 import SendButton from "./SendButton"
 import UrlInput from "./UrlInput"
 
-export default function RequestPanel({ setResponse, setError, isLoading, setIsLoading, setStatus, setResponseTime }) {
+export default function RequestPanel({ 
+    setResponse, 
+    setError, 
+    isLoading, 
+    setIsLoading, 
+    setStatus, 
+    setResponseTime, 
+    setResponseSize 
+}) {
     const [ method, setMethod ] = useState("GET");
     const [ url, setUrl ] = useState("");
 
@@ -11,7 +19,7 @@ export default function RequestPanel({ setResponse, setError, isLoading, setIsLo
         const trimmedUrl = url.trim();
 
         if(!trimmedUrl) {
-            setError("Please enter a URL.")
+            setError("Please enter a URL.");
             return;
         }
         try{
@@ -19,32 +27,38 @@ export default function RequestPanel({ setResponse, setError, isLoading, setIsLo
             setResponse(null);
             setStatus(null);
             setResponseTime(null);
+            setResponseSize(null);
             setIsLoading(true);
 
             const startTime = performance.now();
 
-            const response = await fetch(trimmedUrl);
+            const apiResponse = await fetch(trimmedUrl);
 
             const endTime = performance.now();
-
             const duration = Math.round(endTime - startTime);
 
-            setStatus(response.status)
+            setStatus(apiResponse.status)
             setResponseTime(duration)
 
-            if (!response.ok){
-                setError(`Request failed with status ${response.status}`)
+            if (!apiResponse.ok){
+                setError(`Request failed with status ${apiResponse.status}`)
                 return;
             }
-
-            const data = await response.json();
             
+            const text = await apiResponse.text();
+
+            const bytes = new Blob([text]).size;
+            setResponseSize(bytes);
+
+            const data = JSON.parse(text);
             setResponse(data);
 
         }catch(error){
-            setError(error.message)
+            setResponseTime(null);
+            setResponseSize(null);
+            setError(error.message);
         }finally{
-            setIsLoading(false)
+            setIsLoading(false);
         }
     }
     return (
