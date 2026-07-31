@@ -1,174 +1,90 @@
-# Request Forge
+# Chat Context — Request Forge
 
-## Current Phase
-
-Advanced Request Builder
-
+Quick-reference context for resuming work in a new chat session.
 
 ---
 
-# Completed
-
-
-## React Fundamentals
-
-- Component composition
-- Controlled components
-- Props
-- useState
-- State lifting
-- Parent-child communication
-- Conditional rendering
-
-
----
-
-## Components Created
-
-- App
-- RequestPanel
-- ResponsePanel
-- MethodSelect
-- UrlInput
-- SendButton
-- BodyEditor
-- HeaderEditor
-- ResponseHeaders
-
-
----
-
-# Request Flow
-
-
-User
-
-↓
-
-RequestPanel
-
-↓
-
-Fetch API
-
-↓
-
-External API
-
-↓
-
-Response Handling
-
-↓
-
-ResponsePanel
-
-
----
-
-# State Management
-
-
-## App State
-
-response
-
-error
-
-isLoading
-
-status
-
-responseTime
-
-responseSize
-
-responseHeaders
-
-
----
-
-## RequestPanel State
-
-httpMethod
-
-url
-
-body
-
-headers
-
-
----
-
-# HTTP Features Completed
-
-- GET
-- POST
-- PUT
-- PATCH
-
-Implemented:
-
-- Request body
-- JSON validation
-- Custom headers
-- Authorization headers
-- Response headers
-
-
----
-
-# Current Task
-
-Improve Request Builder Architecture
-
-
-Next:
-
-1. Add request tabs
-
-Example:
-
-Body | Headers | Params
-
-
-2. Add query parameters
-
-
-Example:
-
-URL:
-
-api.com/users?page=1
-
-
-UI:
-
-
-Key Value
-
-page 1
-
-
-
-3. Improve Authorization support
-
-
-Example:
-
-Bearer Token UI
-
-
-4. Add DELETE support
-
-
----
-
-# Engineering Rules
-
-- Small features
-- Understand before coding
-- Review architecture
-- Avoid unnecessary abstraction
-- Build like production software
+## Project
+
+Frontend-only API testing tool (Postman/Insomnia-style), built with React +
+Vite + Tailwind CSS, for learning real-world frontend engineering.
+
+## Repo
+
+`D:\Brototype\request-forge`
+
+## Current File Structure
+
+```
+frontend/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── Navbar.jsx
+│   │   │   └── Sidebar.jsx
+│   │   ├── request/
+│   │   │   ├── BodyEditor.jsx
+│   │   │   ├── HeaderEditor.jsx
+│   │   │   ├── MethodSelect.jsx
+│   │   │   ├── RequestPanel.jsx
+│   │   │   ├── RequestTabs.jsx
+│   │   │   ├── SendButton.jsx
+│   │   │   └── UrlInput.jsx
+│   │   └── response/
+│   │       ├── ResponseHeaders.jsx
+│   │       ├── ResponsePanel.jsx
+│   │       └── ResponseTabs.jsx
+│   ├── hooks/
+│   ├── services/
+│   ├── utils/
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── index.html
+├── vite.config.js
+└── package.json
+```
+
+## Tech Stack
+
+- React + Vite
+- Tailwind CSS (`@tailwindcss/vite` plugin)
+- lucide-react (icons)
+- Fetch API (no axios)
+
+## What's Working
+
+- App.jsx now renders a full layout shell: `Navbar` + `Sidebar` + main content
+  area holding `RequestPanel` and `ResponsePanel`.
+- RequestPanel: method select, URL input, send button, and a tab bar
+  (Body / Headers / Params / Auth). Body and Headers tabs are functional;
+  Params and Auth are placeholders.
+- Request body is JSON-validated before send; `Content-Type` is set
+  automatically when a valid JSON body is present.
+- ResponsePanel now has four distinct UI states: loading (skeleton),
+  error (status-coded heading/message), empty ("Ready for Request"), and
+  success. Success view includes status pill, response time, size, download
+  button, expand/collapse, and a tab bar (Response / Headers / Cookies —
+  Cookies is a placeholder).
+- JSON responses are rendered with syntax highlighting (keys, string values,
+  numbers, booleans, null) and line numbers.
+
+## Not Yet Implemented
+
+- Query parameters (Params tab)
+- Authorization tab (Bearer/Basic token UI)
+- DELETE method
+- Cookies tab
+- Request history / localStorage persistence
+- Copy-to-clipboard for responses
+
+## Notes for Next Session
+
+- Params tab should probably sync bidirectionally with the URL input
+  (adding a param updates the URL query string and vice versa).
+- Auth tab's Bearer token should inject directly into the `headers` array
+  or into a separate `auth` state merged at send-time — needs a decision.
+- Consider extracting the JSON syntax highlighter (`highlightJson` in
+  `ResponsePanel.jsx`) into `utils/` once more views need it.

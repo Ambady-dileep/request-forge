@@ -1,185 +1,105 @@
 # Request Forge
 
-A frontend API testing tool inspired by Postman and Insomnia.
+## Current Phase
 
-Built with React to learn real-world frontend engineering by creating a production-style application instead of following tutorials.
-
----
-
-# Project Goals
-
-- Learn React through real application development
-- Understand component architecture
-- Practice state management patterns
-- Learn HTTP communication using Fetch API
-- Build a portfolio-quality frontend project
-- Follow professional software engineering practices
+Request/Response UI Polish → Query Params & Auth
 
 ---
 
-# Current Features
+# Completed
+
+## Setup & Architecture
+
+- [x] Create project
+- [x] Setup Vite
+- [x] GitHub repository
+- [x] Component structure
+
+## React Fundamentals Practiced
+
+- Component composition
+- Controlled components
+- Props
+- useState
+- State lifting
+- Parent-child communication
+- Conditional rendering
+- Tab-based UI patterns
+
+## Styling
+
+- [x] Install Tailwind CSS (`@tailwindcss/vite`)
+- [x] Custom theme tokens (`ui-dark`, `ui-panel`, `ui-border`, `ui-accent`,
+  `ui-heading`, `ui-text`, `ui-muted`, `ui-emerald`, `ui-violet`, `ui-sky`)
+- [x] lucide-react for icons
+- [x] Navbar and Sidebar layout
 
 ## Request Builder
 
-- HTTP method selection
-- API URL input
-- Send API requests
-- Support GET requests
-- Support POST requests
-- Support PUT requests
-- Support PATCH requests
-
-
-## Request Body
-
-- JSON request body editor
-- JSON validation before sending
-- Automatic Content-Type handling
-
-
-## Request Headers
-
-- Dynamic header editor
-- Add multiple headers
-- Custom Authorization headers
-- Custom API headers support
-
+- [x] HTTP method selection (GET, POST, PUT, PATCH)
+- [x] API URL input
+- [x] Send button + loading state
+- [x] Request body editor
+- [x] JSON validation before sending
+- [x] Automatic Content-Type handling
+- [x] Request headers (dynamic key/value editor)
+- [x] Request tabs (Body / Headers / Params / Auth) — Body & Headers functional
 
 ## Response Viewer
 
-- Display JSON response
-- Pretty formatted JSON output
-- Response status
-- Response time
-- Response size
-
-
-## Response Headers
-
-- Extract response headers
-- Display response headers
-
+- [x] Fetch API integration
+- [x] Response status, time, size metadata
+- [x] Response headers extraction + display
+- [x] Loading skeleton state
+- [x] Status-coded error states (400/401/403/404/500)
+- [x] "Ready for Request" empty state
+- [x] JSON syntax highlighting (keys, strings, numbers, booleans, null)
+- [x] Line numbers
+- [x] Download response as `.json`
+- [x] Expand / collapse response viewer
+- [x] Response tabs (Response / Headers / Cookies) — Response & Headers functional
 
 ## Error Handling
 
-- HTTP error handling
-- Network error handling
-- Invalid JSON handling
-- Loading state management
-- Prevent duplicate requests while loading
+- [x] HTTP error handling
+- [x] Network error handling
+- [x] Invalid JSON handling
+- [x] Prevent duplicate requests while loading
 
 ---
 
-# Tech Stack
+## Components Created
 
-Frontend:
+### Layout
+- Navbar
+- Sidebar
 
-- React
-- Vite
-- JavaScript (ES6+)
-- Fetch API
+### Request
+- RequestPanel
+- MethodSelect
+- UrlInput
+- SendButton
+- BodyEditor
+- HeaderEditor
+- RequestTabs
 
-Future:
+### Response
+- ResponsePanel
+- ResponseHeaders
+- ResponseTabs
 
-- Tailwind CSS
-- Django REST Framework backend
-
----
-
-# Project Structure
-
-src/
-│
-├── components/
-│ │
-│ ├── request/
-│ │ ├── MethodSelect.jsx
-│ │ ├── UrlInput.jsx
-│ │ ├── SendButton.jsx
-│ │ ├── BodyEditor.jsx
-│ │ ├── HeaderEditor.jsx
-│ │ ├── RequestTabs.jsx
-│ │ └── RequestPanel.jsx
-│ │
-│ ├── response/
-│ │ ├── ResponsePanel.jsx
-│ │ ├── ResponseHeaders.jsx
-│ │ └── ResponseTabs.jsx
-│ │
-│ └── layout/
-│
-├── services/
-│
-├── hooks/
-│
-├── utils/
-│
-├── pages/
-│
-├── App.jsx
-└── main.jsx
-
-
+### App
+- App (top-level layout: Navbar + Sidebar + main content)
 
 ---
 
-# React Concepts Practiced
+# Request Flow
 
-- Functional Components
-- Component Composition
-- Props
-- State Management
-- useState Hook
-- Controlled Components
-- Lifting State Up
-- Parent → Child Data Flow
-- Conditional Rendering
-- Component Reusability
-
----
-
-# JavaScript Concepts Practiced
-
-- async / await
-- Fetch API
-- Promises
-- Response Object
-- JSON Parsing
-- Error Handling
-- Object Manipulation
-- Array Methods
-- Spread Operator
-- Dynamic Object Keys
-- Performance API
-
----
-
-# HTTP Concepts Practiced
-
-- HTTP Methods
-    - GET
-    - POST
-    - PUT
-    - PATCH
-
-- HTTP Headers
-- Request Body
-- Content-Type
-- Authorization Headers
-- Response Headers
-- Status Codes
-- Response Metadata
-- API Error Handling
-
----
-
-# Application Flow
-
-User Input
+User
 
 ↓
 
-RequestPanel
+RequestPanel (method, url, body, headers)
 
 ↓
 
@@ -187,139 +107,124 @@ Fetch API
 
 ↓
 
-External API Server
+External API
 
 ↓
 
-Response Processing
+Response Handling (status, time, size, headers)
 
 ↓
 
-ResponsePanel
-
-
----
-
-# Current Progress
-
-## Completed ✅
-
-- Project setup
-- React architecture
-- Component structure
-- Request builder
-- Fetch API integration
-- JSON response viewer
-- Error handling
-- Loading state
-- Response metadata
-- Request body support
-- JSON validation
-- Request headers
-- Authorization headers
-- Response headers
-
-
-## Currently Working 🚧
-
-Request Builder improvements:
-
-- Body / Headers / Params tabs
-- Query parameters
-- Better request organization
-
-
-## Planned
-
-### Productivity Features
-
-- Request history
-- Local storage
-- Save recent requests
-- Delete history
-- Import/export requests
-
-
-### UI Improvements
-
-- Tailwind CSS
-- Professional layout
-- Responsive design
-- Dark mode
-- Better JSON viewer
-- Copy response button
-- Toast notifications
-- Animations
-
-
-### Deployment
-
-- Production build
-- Hosting
-- Performance optimization
-
+ResponsePanel (loading / error / empty / success states)
 
 ---
 
-# Future Backend Version
+# State Management
 
-Possible backend upgrade using Django REST Framework:
+## App State
 
-- User authentication
-- JWT authentication
-- Saved API collections
-- Workspaces
-- Team collaboration
-- Environment variables
-- Cloud synchronization
+- response
+- responseHeaders
+- error
+- isLoading
+- status
+- responseTime
+- responseSize
+
+## RequestPanel State
+
+- httpMethod
+- url
+- body
+- headers
+- activeTab (body / headers / params / auth)
+
+## ResponsePanel State
+
+- activeTab (response / headers / cookies)
+- expanded
 
 ---
 
-# Getting Started
+# Current Tasks
 
-Clone repository:
+## Request Builder
 
-```bash
-git clone https://github.com/Ambady-dileep/request-forge.git
+- [ ] Add query parameters (Params tab)
+- [ ] Sync query params bidirectionally with the URL input
+- [ ] Add Authorization tab (Bearer token / Basic auth)
+- [ ] Add DELETE method support
 
-Navigate:
+## Response Viewer
 
-cd request-forge/frontend
+- [ ] Cookies tab (currently placeholder)
+- [ ] Copy response to clipboard
+- [ ] Search inside response
 
-Install dependencies:
+---
 
-npm install
+# Next Up
 
-Run development server:
+## Productivity
 
-npm run dev
-Learning Philosophy
+- [ ] Request history
+- [ ] LocalStorage persistence
+- [ ] Save requests
+- [ ] Delete history
+- [ ] Import / export requests
 
-This project is built incrementally.
+## UI
 
-Every feature follows:
+- [ ] Full responsive design pass (mobile sidebar)
+- [ ] Animations / transitions
+- [ ] Toast notifications
+- [ ] Deploy
 
-Understand the problem
-Design the component architecture
-Implement a small change
-Test functionality
-Debug issues
-Refactor when needed
+---
 
-The goal is not only to build a working application, but to understand the engineering decisions behind it.
+# Future Backend
 
-Author
+- [ ] Django REST Framework
+- [ ] Authentication
+- [ ] JWT
+- [ ] User collections
+- [ ] Cloud storage
 
-Dileep Ambady
+---
 
-Learning Full Stack Development with React, Django, and Django REST Framework through real-world projects.
+# Detailed Next Steps
 
+1. **Query Parameters**
 
-After updating:
+   Example:
 
-```bash
-git add README.md
+   URL: `api.com/users?page=1`
 
-git commit -m "docs: update README with current project features and architecture"
+   UI:
 
-git push
+   | Key  | Value |
+   |------|-------|
+   | page | 1     |
+
+2. **Authorization tab**
+
+   Bearer Token UI → auto-injects `Authorization: Bearer <token>` header.
+   Decide: inject directly into the `headers` array, or keep a separate
+   `auth` state merged at send-time.
+
+3. **DELETE method support**
+
+4. **Cookies tab** in ResponsePanel (currently placeholder)
+
+5. Consider extracting the JSON syntax highlighter (`highlightJson` in
+   `ResponsePanel.jsx`) into `utils/` once more views need it.
+
+---
+
+# Engineering Rules
+
+- Small features
+- Understand before coding
+- Review architecture
+- Avoid unnecessary abstraction
+- Build like production software
