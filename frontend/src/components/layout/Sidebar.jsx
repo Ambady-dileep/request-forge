@@ -1,206 +1,131 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import {
+  Plus,
+  History,
+  Folder,
+  Layers,
+  Sliders,
+  Server,
+  FileText,
+  HelpCircle,
+} from "lucide-react";
+
+const NAV_ITEMS = [
+  { label: "History", icon: History },
+  { label: "Collections", icon: Folder, active: true },
+  { label: "APIs", icon: Layers },
+  { label: "Environments", icon: Sliders },
+  { label: "Mock Servers", icon: Server },
+];
+
+const FOOTER_ITEMS = [
+  { label: "Docs", icon: FileText },
+  { label: "Help", icon: HelpCircle },
+];
 
 export default function Sidebar() {
-  return (
-    <aside className="flex h-[calc(100vh-4rem)] w-64 shrink-0 flex-col justify-between border-r border-ui-border bg-ui-panel p-4 text-ui-text select-none">
-      <div className="space-y-6">
-        {/* Workspace Info Header */}
-        <div className="flex items-center gap-3 px-2 py-1">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-ui-accent text-sm font-semibold text-white">
-            TW
-          </div>
-          <div className="overflow-hidden">
-            <h2 className="truncate text-sm font-semibold leading-tight text-ui-heading">
-              Team Workspace
-            </h2>
-            <p className="text-xs text-ui-text/70">6 Members</p>
-          </div>
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const handleToggle = () => setMobileOpen((v) => !v);
+    const handleKey = (e) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("toggle-sidebar", handleToggle);
+    window.addEventListener("keydown", handleKey);
+    return () => {
+      window.removeEventListener("toggle-sidebar", handleToggle);
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, []);
+
+  const SidebarContent = (
+    <div className="flex h-full w-64 flex-col bg-ui-panel">
+      {/* Workspace card */}
+      <div className="flex items-center gap-3 border-b border-ui-border px-4 py-4">
+        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ui-accent text-sm font-bold text-white">
+          TW
         </div>
+        <div className="min-w-0">
+          <p className="truncate text-sm font-semibold text-ui-heading">
+            Team Workspace
+          </p>
+          <p className="text-xs text-ui-muted">6 Members</p>
+        </div>
+      </div>
 
-        {/* Action Button */}
-        <button className="flex w-full items-center justify-center gap-2 rounded-md bg-ui-accent px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 shadow-sm">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M5 12h14" />
-            <path d="M12 5v14" />
-          </svg>
-          <span>New Request</span>
+      {/* New request */}
+      <div className="px-4 py-4">
+        <button className="flex w-full items-center justify-center gap-2 rounded-md bg-ui-accent px-3 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90">
+          <Plus size={16} />
+          New Request
         </button>
-
-        {/* Main Navigation */}
-        <nav className="space-y-1">
-          <a
-            href="#"
-            className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-ui-text hover:bg-ui-border/40 hover:text-ui-heading transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-              <path d="M3 3v5h5" />
-              <path d="M12 7v5l4 2" />
-            </svg>
-            <span>History</span>
-          </a>
-
-          {/* Active Item Example */}
-          <a
-            href="#"
-            className="flex items-center gap-3 rounded-md bg-ui-border/60 px-3 py-2 text-sm font-medium text-ui-heading transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L8.6 3.3A2 2 0 0 0 6.9 2.5H4a2 2 0 0 0-2 2v13.5a2 2 0 0 0 2 2z" />
-            </svg>
-            <span>Collections</span>
-          </a>
-
-          <a
-            href="#"
-            className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-ui-text hover:bg-ui-border/40 hover:text-ui-heading transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polygon points="12 2 2 7 12 12 22 7 12 2" />
-              <polyline points="2 17 12 22 22 17" />
-              <polyline points="2 12 12 17 22 12" />
-            </svg>
-            <span>APIs</span>
-          </a>
-
-          <a
-            href="#"
-            className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-ui-text hover:bg-ui-border/40 hover:text-ui-heading transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <line x1="4" x2="20" y1="21" y2="21" />
-              <line x1="4" x2="20" y1="14" y2="14" />
-              <line x1="4" x2="20" y1="7" y2="7" />
-              <circle cx="8" cy="21" r="2" />
-              <circle cx="16" cy="14" r="2" />
-              <circle cx="12" cy="7" r="2" />
-            </svg>
-            <span>Environments</span>
-          </a>
-
-          <a
-            href="#"
-            className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-ui-text hover:bg-ui-border/40 hover:text-ui-heading transition-colors"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
-              <rect width="20" height="8" x="2" y="14" rx="2" ry="2" />
-              <line x1="6" x2="6.01" y1="6" y2="6" />
-              <line x1="6" x2="6.01" y1="18" y2="18" />
-            </svg>
-            <span>Mock Servers</span>
-          </a>
-        </nav>
       </div>
 
-      {/* Footer Navigation */}
-      <div className="space-y-1 border-t border-ui-border/60 pt-4">
-        <a
-          href="#"
-          className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-ui-text hover:bg-ui-border/40 hover:text-ui-heading transition-colors"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+      {/* Main nav */}
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3">
+        {NAV_ITEMS.map(({ label, icon: Icon, active }) => (
+          <a
+            key={label}
+            href="#"
+            className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+              active
+                ? "bg-ui-surface text-ui-heading"
+                : "text-ui-text hover:bg-ui-surface hover:text-ui-heading"
+            }`}
           >
-            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-            <path d="M14 2v4a1 1 0 0 0 1 1h4" />
-            <path d="M10 9H8" />
-            <path d="M16 13H8" />
-            <path d="M16 17H8" />
-          </svg>
-          <span>Docs</span>
-        </a>
+            <Icon size={16} />
+            {label}
+          </a>
+        ))}
+      </nav>
 
-        <a
-          href="#"
-          className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-ui-text hover:bg-ui-border/40 hover:text-ui-heading transition-colors"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+      {/* Footer nav */}
+      <div className="space-y-1 border-t border-ui-border px-3 py-4">
+        {FOOTER_ITEMS.map(({ label, icon: Icon }) => (
+          <a
+            key={label}
+            href="#"
+            className="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-ui-text transition-colors hover:bg-ui-surface hover:text-ui-heading"
           >
-            <circle cx="12" cy="12" r="10" />
-            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-            <path d="M12 17h.01" />
-          </svg>
-          <span>Help</span>
-        </a>
+            <Icon size={16} />
+            {label}
+          </a>
+        ))}
       </div>
-    </aside>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop sidebar - always visible, part of layout flow */}
+      <aside className="hidden shrink-0 border-r border-ui-border md:block">
+        {SidebarContent}
+      </aside>
+
+      {/* Mobile sidebar - off-canvas drawer */}
+      <div
+        className={`fixed inset-0 z-40 md:hidden ${
+          mobileOpen ? "pointer-events-auto" : "pointer-events-none"
+        }`}
+      >
+        {/* Backdrop */}
+        <div
+          onClick={() => setMobileOpen(false)}
+          className={`absolute inset-0 bg-black/60 transition-opacity duration-200 ${
+            mobileOpen ? "opacity-100" : "opacity-0"
+          }`}
+        />
+
+        {/* Drawer */}
+        <div
+          className={`absolute left-0 top-0 h-full border-r border-ui-border shadow-xl transition-transform duration-200 ${
+            mobileOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          {SidebarContent}
+        </div>
+      </div>
+    </>
   );
 }
